@@ -1,8 +1,5 @@
 package com.smartdoc.demo.project.web.no1;
 
-
-
-
 import java.util.List;
 
 import com.smartdoc.demo.project.api.constants.ResponseMessage;
@@ -21,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zongzi
  */
 @RestController
-@RequestMapping("/demo")
-public class DemoController {
+@RequestMapping("/demo2")
+public class Demo2Controller {
 
 	/**
 	 * find foo pojos by foo string

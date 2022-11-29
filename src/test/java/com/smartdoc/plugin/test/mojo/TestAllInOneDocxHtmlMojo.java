@@ -11,7 +11,7 @@ import org.junit.Test;
  * Test docx html mojo
  * @author zongzi
  */
-public class TestDocxHtmlMojo extends BaseMojoTest {
+public class TestAllInOneDocxHtmlMojo extends BaseMojoTest {
 	@Override
 	protected Properties setUserProperties() {
 		return null;
@@ -19,7 +19,7 @@ public class TestDocxHtmlMojo extends BaseMojoTest {
 
 	@Override
 	protected String mavenProjectDir() {
-		return "project-demos/aggregator-demo/web-2";
+		return "project-demos/aggregator-demo/web-1";
 	}
 
 
@@ -27,7 +27,7 @@ public class TestDocxHtmlMojo extends BaseMojoTest {
 	 * test docx mojo's running
 	 */
 	@Test
-	public void testDocxHtmlMojoRunning() throws Exception {
+	public void testDocxMojoRunning() throws Exception {
 		Mojo runnableMojo = findRunnableMojo(MojoConstants.DOCX_MOJO);
 		runnableMojo.execute();
 	}

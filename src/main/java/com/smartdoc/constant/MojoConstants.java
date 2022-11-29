@@ -49,4 +49,5 @@ public interface MojoConstants {
 
     String TORNA_RPC_MOJO = "torna-rpc";
     String DOCX_MOJO = "docx-html";
+    String DOCX_RPC_MOJO = "docx-rpc";
 }

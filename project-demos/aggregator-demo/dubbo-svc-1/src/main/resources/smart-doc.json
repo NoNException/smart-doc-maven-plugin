@@ -1,0 +1,62 @@
+{
+  "outPath": "target/doc",
+  "debugEnvUrl": "http://127.0.0.1:8080",
+  "allInOne": true,
+  "replace": true,
+  "requestHeaders": [
+    //设置请求头，没有需求可以不设置
+    {
+      "name": "global-headers",
+      "type": "string",
+      "desc": "desc",
+      "value": "kk",
+      "required": false,
+      "since": "-",
+      "pathPatterns": "/**"
+    },
+    {
+      "name": "headers-not-demo-update",
+      "type": "string",
+      "desc": "desc",
+      "value": "any string",
+      "required": false,
+      "since": "2.5.3",
+      "excludePathPatterns": "/demo/update/*"
+    },
+    {
+      "name": "headers-only-in-demo-add",
+      "type": "string",
+      "desc": "desc",
+      "value": "any string",
+      "required": false,
+      "since": "2.5.3",
+      "pathPatterns": "/demo/add"
+    }
+  ],
+  "groups": [
+    {
+      "name": "DemoService分组",
+      "apis": "com.smartdoc.demo.project.api.service.Demo.*"
+    },
+    {
+      "name": "FooService分组",
+      "apis": "com.smartdoc.demo.project.api.service.Foo.*"
+    }
+  ],
+  "errorCodeDictionaries": [
+    {
+      "title": "title",
+      "enumClassName": "com.power.common.enums.HttpCodeEnum",
+      "codeField": "code",
+      "descField": "message"
+    }
+  ],
+  "dataDictionaries": [
+    {
+      "title": "http状态码字典",
+      "enumClassName": "com.power.common.enums.HttpCodeEnum",
+      "codeField": "code",
+      "descField": "message"
+    }
+  ]
+}

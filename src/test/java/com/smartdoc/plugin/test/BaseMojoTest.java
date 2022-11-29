@@ -11,6 +11,7 @@ import java.util.function.Function;
 
 import com.power.common.util.CollectionUtil;
 import com.power.common.util.StringUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.execution.DefaultMavenExecutionRequest;
@@ -70,22 +71,35 @@ public abstract class BaseMojoTest {
 
 
 	/**
-	 * <b>Please pass `smart-doc.test.maven.local.repository=${you local repository basedir}' to system's properties when running test's</b>
+	 * <b>Please pass `smartdoc=${you local repository basedir}' to system's properties when running test's</b>
 	 * <br>
 	 * it while be like
-	 * <code> java -Dsmart-doc.test.local.repository=${user.home}/.m2/repository</code>
+	 * <code> java -Dsmartdoc=${user.home}/.m2/repository</code>
 	 *
 	 */
+	private static String SYSTEM_REPOSITORY_PATH;
 
-	private final static String SYSTEM_REPOSITORY_PATH = System.getProperty("smartdoc.local.repository");
+	static {
+		SYSTEM_REPOSITORY_PATH = System.getProperty("smartdoc");
+		// try check  ${user.home}/.m2/repository
+		if (StringUtils.isEmpty(SYSTEM_REPOSITORY_PATH)) {
+			String userHome = System.getProperty("user.home");
+			File file = new File(userHome + "/.m2/repository");
+			if (file.exists()) {
+				SYSTEM_REPOSITORY_PATH = file.getAbsolutePath();
+				System.out.println("Auto set repository to :" + SYSTEM_REPOSITORY_PATH);
+			}
+		}
+	}
+
 	private static LocalRepository LOCAL_REPOSITORY = null;
 	private DefaultRepositorySystemSession defaultRepositorySystemSession = null;
 
 	private MavenProject mavenProject;
 	private MavenSession mavenSession;
 
-	AbstractMojoTestCase preparePluginXml = new AbstractMojoTestCase(){
-		MavenProject mockThisPluginMavenProject(){
+	AbstractMojoTestCase preparePluginXml = new AbstractMojoTestCase() {
+		MavenProject mockThisPluginMavenProject() {
 			MavenProject project = new MavenProject();
 			project.setGroupId("com.github.shalousun");
 			project.setArtifactId("smart-doc-maven-plugin");
@@ -104,39 +118,37 @@ public abstract class BaseMojoTest {
 		}
 
 		protected void setUp() throws Exception {
-			File outputDirectory= new File("target/test-classes/META-INF/maven");
-			// create plugin.xml file
+			File outputDirectory = new File("target/test-classes/META-INF/maven");
+			// create plugin.xml file from mojo annotations
 			PluginDescriptor pluginDescriptor = new PluginDescriptor();
 			MavenProject project = mockThisPluginMavenProject();
-			pluginDescriptor.setGroupId( project.getGroupId() );
-			pluginDescriptor.setArtifactId( project.getArtifactId() );
-			pluginDescriptor.setVersion( project.getVersion() );
-			pluginDescriptor.setGoalPrefix( "smart-doc" );
-			pluginDescriptor.setName( project.getName() );
-			pluginDescriptor.setDescription( project.getDescription() );
-			try
-			{
-				List<ComponentDependency> deps = GeneratorUtils.toComponentDependencies( project.getArtifacts() );
-				pluginDescriptor.setDependencies( deps );
+			pluginDescriptor.setGroupId(project.getGroupId());
+			pluginDescriptor.setArtifactId(project.getArtifactId());
+			pluginDescriptor.setVersion(project.getVersion());
+			pluginDescriptor.setGoalPrefix("smart-doc");
+			pluginDescriptor.setName(project.getName());
+			pluginDescriptor.setDescription(project.getDescription());
+			try {
+				List<ComponentDependency> deps = GeneratorUtils.toComponentDependencies(project.getArtifacts());
+				pluginDescriptor.setDependencies(deps);
 
-				PluginToolsRequest request = new DefaultPluginToolsRequest( project, pluginDescriptor );
-				MojoScanner scanner = new DefaultMojoScanner(new HashMap<String, org.apache.maven.tools.plugin.extractor.MojoDescriptorExtractor>(){{
-					put("java-annotations",getContainer().lookup(MojoDescriptorExtractor.class,"java-annotations"));
+				PluginToolsRequest request = new DefaultPluginToolsRequest(project, pluginDescriptor);
+				MojoScanner scanner = new DefaultMojoScanner(new HashMap<String, org.apache.maven.tools.plugin.extractor.MojoDescriptorExtractor>() {{
+					put("java-annotations", getContainer().lookup(MojoDescriptorExtractor.class, "java-annotations"));
 				}});
-				scanner.setActiveExtractors(new HashSet<String>(){
+				scanner.setActiveExtractors(new HashSet<String>() {
 					{
 						add("java-annotations");
 					}
 				});
-				scanner.populatePluginDescriptor( request );
+				scanner.populatePluginDescriptor(request);
 				outputDirectory.mkdirs();
 				PluginDescriptorGenerator pluginDescriptorGenerator = new PluginDescriptorGenerator(new SystemStreamLog());
-				pluginDescriptorGenerator.execute( outputDirectory, request );
+				pluginDescriptorGenerator.execute(outputDirectory, request);
 
 			}
-			catch ( Exception e )
-			{
-				throw new RuntimeException( "can't create plugin.xml file", e );
+			catch (Exception e) {
+				throw new RuntimeException("can't create plugin.xml file", e);
 			}
 
 			super.setUp();

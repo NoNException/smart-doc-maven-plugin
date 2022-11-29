@@ -11,7 +11,7 @@ import org.junit.Test;
  * Test docx html mojo
  * @author zongzi
  */
-public class TestDocxHtmlMojo extends BaseMojoTest {
+public class TestAllInOneDocxRpcMojo extends BaseMojoTest {
 	@Override
 	protected Properties setUserProperties() {
 		return null;
@@ -19,7 +19,7 @@ public class TestDocxHtmlMojo extends BaseMojoTest {
 
 	@Override
 	protected String mavenProjectDir() {
-		return "project-demos/aggregator-demo/web-2";
+		return "project-demos/aggregator-demo/dubbo-svc-1";
 	}
 
 
@@ -27,8 +27,10 @@ public class TestDocxHtmlMojo extends BaseMojoTest {
 	 * test docx mojo's running
 	 */
 	@Test
-	public void testDocxHtmlMojoRunning() throws Exception {
-		Mojo runnableMojo = findRunnableMojo(MojoConstants.DOCX_MOJO);
+	public void testDocxMojoRunning() throws Exception {
+		Mojo runnableMojo = findRunnableMojo(MojoConstants.RPC_HTML_MOJO);
+		runnableMojo.execute();
+		runnableMojo = findRunnableMojo(MojoConstants.DOCX_RPC_MOJO);
 		runnableMojo.execute();
 	}
 }

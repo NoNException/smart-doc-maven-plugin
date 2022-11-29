@@ -1,7 +1,7 @@
 {
   "outPath": "target/doc",
   "debugEnvUrl":"http://127.0.0.1:8080",
-  "allInOne":true,
+  "allInOne":false,
   "replace": true,
   "requestHeaders": [
       //设置请求头，没有需求可以不设置

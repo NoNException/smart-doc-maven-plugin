@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 测试控制类
+ * 测试控制类<br>
+ * test controller foo no.2,
  * @author zongzi
  */
 @RestController
-@RequestMapping("/foo")
-public class FooController {
+@RequestMapping("/foo2")
+public class Foo2Controller {
 
 	/**
-	 * update foo2's foo pojo
+	 * 更新FooPojo
 	 * @param fooInt foo pojo's id
 	 * @param fooPojo the update infos
 	 * @return 1 success 2 failed
