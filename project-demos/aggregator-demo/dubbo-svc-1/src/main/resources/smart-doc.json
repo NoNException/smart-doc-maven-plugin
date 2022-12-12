@@ -2,37 +2,7 @@
   "outPath": "target/doc",
   "debugEnvUrl": "http://127.0.0.1:8080",
   "allInOne": true,
-  "replace": true,
-  "requestHeaders": [
-    //设置请求头，没有需求可以不设置
-    {
-      "name": "global-headers",
-      "type": "string",
-      "desc": "desc",
-      "value": "kk",
-      "required": false,
-      "since": "-",
-      "pathPatterns": "/**"
-    },
-    {
-      "name": "headers-not-demo-update",
-      "type": "string",
-      "desc": "desc",
-      "value": "any string",
-      "required": false,
-      "since": "2.5.3",
-      "excludePathPatterns": "/demo/update/*"
-    },
-    {
-      "name": "headers-only-in-demo-add",
-      "type": "string",
-      "desc": "desc",
-      "value": "any string",
-      "required": false,
-      "since": "2.5.3",
-      "pathPatterns": "/demo/add"
-    }
-  ],
+  "coverOld": true,
   "groups": [
     {
       "name": "DemoService分组",
@@ -58,5 +28,18 @@
       "codeField": "code",
       "descField": "message"
     }
-  ]
+  ],
+  "rpcApiDependencies": [
+    {
+      "artifactId": "SpringBoot2-Dubbo-Api",
+      "groupId": "com.demo",
+      "version": "1.0.0"
+    },
+    {
+      "artifactId": "SpringBoot2-Dubbo-Api",
+      "groupId": "com.demo",
+      "version": "1.0.0-123312321-RELEASE"
+    }
+  ],
+  "rpcConsumerConfig": "src/main/resources/consumer-example.conf"
 }

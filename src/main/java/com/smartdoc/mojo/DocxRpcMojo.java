@@ -1,5 +1,10 @@
 package com.smartdoc.mojo;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
+
+import com.power.common.util.CollectionUtil;
 import com.power.doc.builder.DocxApiDocBuilder;
 import com.power.doc.builder.rpc.RpcDocxBuilder;
 import com.power.doc.model.ApiConfig;
@@ -19,12 +24,19 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  */
 @Execute(phase = LifecyclePhase.COMPILE)
 @Mojo(name = MojoConstants.DOCX_RPC_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
-public class DocxRpcMojo extends BaseDocsGeneratorMojo{
+public class DocxRpcMojo extends BaseDocsGeneratorMojo {
+
+	private Consumer<ApiConfig> consumer;
+
 	@Override
 	public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) throws MojoExecutionException, MojoFailureException {
 		try {
-			new RpcDocxBuilder(javaProjectBuilder,apiConfig).buildApiDoc();
-		} catch (Exception e) {
+			if (Objects.nonNull(consumer)) {
+				consumer.accept(apiConfig);
+			}
+			new RpcDocxBuilder(javaProjectBuilder, apiConfig).buildApiDoc();
+		}
+		catch (Exception e) {
 			getLog().error(e);
 		}
 	}

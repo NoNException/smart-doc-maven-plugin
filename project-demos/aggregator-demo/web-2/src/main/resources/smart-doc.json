@@ -1,62 +1,66 @@
 {
   "outPath": "target/doc",
-  "debugEnvUrl":"http://127.0.0.1:8080",
-  "allInOne":false,
-  "replace": true,
+  "debugEnvUrl": "http://127.0.0.1:8080",
+  "allInOne": false,
+  "coverOld": true,
   "requestHeaders": [
-      //设置请求头，没有需求可以不设置
-      {
-        "name": "global-headers",
-        "type": "string",
-        "desc": "desc",
-        "value": "kk",
-        "required": false,
-        "since": "-",
-        "pathPatterns": "/**"
-      },
-      {
-        "name": "headers-not-demo-update",
-        "type": "string",
-        "desc": "desc",
-        "value": "any string",
-        "required": false,
-        "since": "2.5.3",
-        "excludePathPatterns": "/demo/update/*"
-      },
-      {
-        "name": "headers-only-in-demo-add",
-        "type": "string",
-        "desc": "desc",
-        "value": "any string",
-        "required": false,
-        "since": "2.5.3",
-        "pathPatterns": "/demo/add"
-      }
-    ],
-    "groups": [
-		{
-			"name": "Demo分组", // 分组名称
-			"apis": "com.smartdoc.demo.project.web.no1.Demo.*Controller"  // 分组url, 支持正则
-		},
-		{
-			"name": "Foo分组", // 分组名称
-			"apis": "com.smartdoc.demo.project.web.no1.Foo.*Controller"  // 分组url, 支持正则
-		}
-    ],
-    "errorCodeDictionaries": [
-        {
-          "title": "title",
-          "enumClassName": "com.power.common.enums.HttpCodeEnum",
-          "codeField": "code",
-          "descField": "message"
-        }
-      ],
-      "dataDictionaries": [
-          {
-            "title": "http状态码字典",
-            "enumClassName": "com.power.common.enums.HttpCodeEnum",
-            "codeField": "code",
-            "descField": "message"
-          }
-      ]
+    //设置请求头，没有需求可以不设置
+    {
+      "name": "global-headers",
+      "type": "string",
+      "desc": "desc",
+      "value": "kk",
+      "required": false,
+      "since": "-",
+      "pathPatterns": "/**"
+    },
+    {
+      "name": "headers-not-demo-update",
+      "type": "string",
+      "desc": "desc",
+      "value": "any string",
+      "required": false,
+      "since": "2.5.3",
+      "excludePathPatterns": "/demo/update/*"
+    },
+    {
+      "name": "headers-only-in-demo-add",
+      "type": "string",
+      "desc": "desc",
+      "value": "any string",
+      "required": false,
+      "since": "2.5.3",
+      "pathPatterns": "/demo/add"
+    }
+  ],
+  "groups": [
+    {
+      "name": "Demo分组",
+      // 分组名称
+      "apis": "com.smartdoc.demo.project.web.no1.Demo.*Controller"
+      // 分组url, 支持正则
+    },
+    {
+      "name": "Foo分组",
+      // 分组名称
+      "apis": "com.smartdoc.demo.project.web.no1.Foo.*Controller"
+      // 分组url, 支持正则
+    }
+  ],
+  "errorCodeDictionaries": [
+    {
+      "title": "title",
+      "enumClassName": "com.power.common.enums.HttpCodeEnum",
+      "codeField": "code",
+      "descField": "message"
+    }
+  ],
+  "dataDictionaries": [
+    {
+      "title": "http状态码字典",
+      "enumClassName": "com.power.common.enums.HttpCodeEnum",
+      "codeField": "code",
+      "descField": "message"
+    }
+  ]
 }

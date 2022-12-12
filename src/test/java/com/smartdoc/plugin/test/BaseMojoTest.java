@@ -48,7 +48,6 @@ import org.apache.maven.tools.plugin.DefaultPluginToolsRequest;
 import org.apache.maven.tools.plugin.PluginToolsRequest;
 import org.apache.maven.tools.plugin.extractor.ExtractionException;
 import org.apache.maven.tools.plugin.extractor.MojoDescriptorExtractor;
-import org.apache.maven.tools.plugin.extractor.annotations.JavaAnnotationsMojoDescriptorExtractor;
 import org.apache.maven.tools.plugin.generator.GeneratorException;
 import org.apache.maven.tools.plugin.generator.GeneratorUtils;
 import org.apache.maven.tools.plugin.generator.PluginDescriptorGenerator;
@@ -249,6 +248,8 @@ public abstract class BaseMojoTest {
 	protected Mojo findRunnableMojo(String goalName) throws Exception {
 		return findRunnableMojo(goalName, true);
 	}
+
+
 
 	/**
 	 * find a runnable mojo of the goal you provided
